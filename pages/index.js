@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
+import { useState, useEffect, useContext } from 'react';
+import { LanguageContext } from './_app';
+import { translations } from '../translations';
 import RankSelector from '../components/RankSelector';
 import RankDisplay from '../components/RankDisplay';
 import Footer from '../components/Footer';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  const { t, i18n } = useTranslation('common');
-  const router = useRouter();
+  const { language, setLanguage } = useContext(LanguageContext);
   const [games, setGames] = useState([]);
   const [sourceGame, setSourceGame] = useState('');
   const [sourceRank, setSourceRank] = useState('');
@@ -18,15 +16,22 @@ export default function Home() {
   const [sourceTopPercentage, setSourceTopPercentage] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/games?lang=${i18n.language}`)
+    fetch(`/api/games?lang=${language}`)
       .then(response => response.json())
       .then(data => setGames(data));
-  }, [i18n.language]);
+
+    // Reset fields when language changes
+    setSourceGame('');
+    setSourceRank('');
+    setTargetGame('');
+    setTargetRank('');
+    setSourceTopPercentage(null);
+  }, [language]);
 
   useEffect(() => {
     const fetchSourcePercentage = async () => {
       if (sourceGame && sourceRank) {
-        const response = await fetch(`/api/convert?sourceGame=${sourceGame}&sourceRank=${sourceRank}&lang=${i18n.language}`);
+        const response = await fetch(`/api/convert?sourceGame=${sourceGame}&sourceRank=${sourceRank}&lang=${language}`);
         const data = await response.json();
         setSourceTopPercentage(data.sourceTopPercentage);
       } else {
@@ -35,12 +40,12 @@ export default function Home() {
     };
 
     fetchSourcePercentage();
-  }, [sourceGame, sourceRank, i18n.language]);
+  }, [sourceGame, sourceRank, language]);
 
   useEffect(() => {
     const convertRank = async () => {
       if (sourceGame && sourceRank && targetGame) {
-        const response = await fetch(`/api/convert?sourceGame=${sourceGame}&sourceRank=${sourceRank}&targetGame=${targetGame}&lang=${i18n.language}`);
+        const response = await fetch(`/api/convert?sourceGame=${sourceGame}&sourceRank=${sourceRank}&targetGame=${targetGame}&lang=${language}`);
         const data = await response.json();
         setTargetRank(data.targetRank);
       } else {
@@ -49,24 +54,32 @@ export default function Home() {
     };
 
     convertRank();
-  }, [sourceGame, sourceRank, targetGame, i18n.language]);
+  }, [sourceGame, sourceRank, targetGame, language]);
 
-  const changeLanguage = (lng) => {
-    router.push('/', '/', { locale: lng });
+  const t = (key) => translations[language][key];
+
+  const handleLanguageChange = (newLanguage) => {
+    setLanguage(newLanguage);
+    // Reset fields when language changes
+    setSourceGame('');
+    setSourceRank('');
+    setTargetGame('');
+    setTargetRank('');
+    setSourceTopPercentage(null);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.languageSwitch}>
         <button 
-          onClick={() => changeLanguage('zh')} 
-          className={router.locale === 'zh' ? styles.active : ''}
+          onClick={() => handleLanguageChange('zh')} 
+          className={language === 'zh' ? styles.active : ''}
         >
           中文
         </button>
         <button 
-          onClick={() => changeLanguage('en')} 
-          className={router.locale === 'en' ? styles.active : ''}
+          onClick={() => handleLanguageChange('en')} 
+          className={language === 'en' ? styles.active : ''}
         >
           English
         </button>
@@ -80,12 +93,14 @@ export default function Home() {
           onGameChange={setSourceGame}
           onRankChange={setSourceRank}
           label={t('sourceGame')}
+          t={t}
         />
         <RankSelector
           games={games}
           selectedGame={targetGame}
           onGameChange={setTargetGame}
           label={t('targetGame')}
+          t={t}
         />
       </div>
       <RankDisplay 
@@ -94,16 +109,9 @@ export default function Home() {
         targetGame={targetGame} 
         targetRank={targetRank}
         sourceTopPercentage={sourceTopPercentage}
+        t={t}
       />
       <Footer />
     </div>
   );
-}
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
 }

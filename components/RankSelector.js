@@ -1,8 +1,6 @@
-import { useTranslation } from 'next-i18next';
 import styles from '../styles/RankSelector.module.css';
 
-export default function RankSelector({ games, selectedGame, selectedRank, onGameChange, onRankChange, label }) {
-  const { t } = useTranslation('common');
+export default function RankSelector({ games, selectedGame, selectedRank, onGameChange, onRankChange, label, t }) {
   const handleGameChange = (e) => {
     onGameChange(e.target.value);
     if (onRankChange) onRankChange('');

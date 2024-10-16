@@ -39,7 +39,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: npm ci
-      - name: Build with Next.js
+      - name: Build with custom export script
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

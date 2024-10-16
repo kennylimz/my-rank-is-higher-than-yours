@@ -3,6 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/api/convert": "pages/api/convert.js",
-  "/api/games": "pages/api/games.js"
+  "/api/games": "pages/api/games.js",
+  "/api/convert": "pages/api/convert.js"
 }
