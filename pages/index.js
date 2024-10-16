@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useState, useEffect, useContext } from 'react';
 import { LanguageContext } from './_app';
 import { translations, t } from '../translations';
@@ -50,6 +51,10 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>{t('pageTitle', language)}</title>
+        <link rel="icon" href="/my-icon.png" type="image/png" />
+      </Head>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

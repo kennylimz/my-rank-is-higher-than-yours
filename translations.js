@@ -1,5 +1,6 @@
 export const translations = {
   en: {
+    pageTitle: "Game Rank Converter",
     title: "Game Rank Converter",
     sourceGame: "Source Game",
     targetGame: "Target Game",
@@ -10,6 +11,7 @@ export const translations = {
     selectRank: "Select a rank"
   },
   zh: {
+    pageTitle: "游戏段位转换器",
     title: "你什么冠军？",
     sourceGame: "你的游戏",
     targetGame: "TA的游戏",
