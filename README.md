@@ -1,5 +1,8 @@
 # Game Rank Converter
+(https://kennylimz.github.io/my-rank-is-higher-than-yours/)
+
 这个项目收集了一些游戏的段位分布数据，让你可以知道自己的段位在别的游戏里是什么水平。
+
 This project is a Game Rank Converter that allows users to compare ranks across different games.
 
 ## Data Sources
