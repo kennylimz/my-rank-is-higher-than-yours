@@ -72,7 +72,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
-        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        run: |
+          ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+          ${{ steps.detect-package-manager.outputs.manager }} install csv-parser
       - name: Generate static data
         run: node scripts/generate-static-data.js
       - name: Build with Next.js
