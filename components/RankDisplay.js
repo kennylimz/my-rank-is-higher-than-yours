@@ -1,19 +1,36 @@
 import styles from '../styles/RankDisplay.module.css';
 
-export default function RankDisplay({ sourceGame, sourceRank, targetGame, targetRank, sourceTopPercentage, t }) {
-  if (!sourceGame || !sourceRank) {
-    return null;
+export default function RankDisplay({ sourceGame, sourceRank, targetGame, rankData, t }) {
+  if (!rankData) return null;
+
+  const formatPercentage = (value) => (100 - value).toFixed(2);
+
+  let targetRankText = '';
+  if (rankData.targetRankLower === rankData.targetRankUpper) {
+    targetRankText = rankData.targetRankLower;
+  } else {
+    targetRankText = `${rankData.targetRankLower} - ${rankData.targetRankUpper}`;
   }
 
   return (
     <div className={styles.container}>
       <h2>{t('rankInfo')}</h2>
       <p>
-        {t('beatsPlayers').replace('{{rank}}', sourceRank).replace('{{game}}', sourceGame).replace('{{percentage}}', (100-sourceTopPercentage)?.toFixed(2))}
+        {t('sourceRankInfo', {
+          rank: sourceRank,
+          game: sourceGame,
+          start: formatPercentage(rankData.sourceRangeStart),
+          end: formatPercentage(rankData.sourceRangeEnd)
+        })}
       </p>
-      {targetGame && targetRank && sourceGame !== targetGame && (
+      {targetGame && rankData.targetRankLower && sourceGame !== targetGame && (
         <p>
-          {t('equivalent').replace('{{rank}}', targetRank).replace('{{game}}', targetGame)}
+          {t('targetRankInfo', {
+            game: targetGame,
+            rank: targetRankText,
+            start: formatPercentage(rankData.targetRangeStart),
+            end: formatPercentage(rankData.targetRangeEnd)
+          })}
         </p>
       )}
     </div>

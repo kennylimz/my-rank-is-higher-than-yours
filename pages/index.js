@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { LanguageContext } from './_app';
-import { translations } from '../translations';
+import { translations, t } from '../translations';
 import RankSelector from '../components/RankSelector';
 import RankDisplay from '../components/RankDisplay';
 import Footer from '../components/Footer';
@@ -13,8 +13,7 @@ export default function Home() {
   const [sourceGame, setSourceGame] = useState('');
   const [sourceRank, setSourceRank] = useState('');
   const [targetGame, setTargetGame] = useState('');
-  const [targetRank, setTargetRank] = useState('');
-  const [sourceTopPercentage, setSourceTopPercentage] = useState(null);
+  const [rankData, setRankData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,30 +27,17 @@ export default function Home() {
   }, [language]);
 
   useEffect(() => {
-    async function updateSourcePercentage() {
-      if (sourceGame && sourceRank) {
-        const result = await convertRank(sourceGame, sourceRank, null, language);
-        setSourceTopPercentage(result.sourceTopPercentage);
-      } else {
-        setSourceTopPercentage(null);
-      }
-    }
-    updateSourcePercentage();
-  }, [sourceGame, sourceRank, language]);
-
-  useEffect(() => {
-    async function updateTargetRank() {
+    async function updateRankData() {
       if (sourceGame && sourceRank && targetGame) {
         const result = await convertRank(sourceGame, sourceRank, targetGame, language);
-        setTargetRank(result.targetRank);
+        console.log(result);
+        setRankData(result);
       } else {
-        setTargetRank('');
+        setRankData(null);
       }
     }
-    updateTargetRank();
+    updateRankData();
   }, [sourceGame, sourceRank, targetGame, language]);
-
-  const t = (key) => translations[language][key];
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
@@ -59,8 +45,7 @@ export default function Home() {
     setSourceGame('');
     setSourceRank('');
     setTargetGame('');
-    setTargetRank('');
-    setSourceTopPercentage(null);
+    setRankData(null);
   };
 
   return (
@@ -83,7 +68,7 @@ export default function Home() {
               English
             </button>
           </div>
-          <h1 className={styles.title}>{t('title')}</h1>
+          <h1 className={styles.title}>{t('title', language)}</h1>
           <div className={styles.converterContainer}>
             <RankSelector
               games={games}
@@ -91,24 +76,23 @@ export default function Home() {
               selectedRank={sourceRank}
               onGameChange={setSourceGame}
               onRankChange={setSourceRank}
-              label={t('sourceGame')}
-              t={t}
+              label={t('sourceGame', language)}
+              t={(key) => t(key, language)}
             />
             <RankSelector
               games={games}
               selectedGame={targetGame}
               onGameChange={setTargetGame}
-              label={t('targetGame')}
-              t={t}
+              label={t('targetGame', language)}
+              t={(key) => t(key, language)}
             />
           </div>
           <RankDisplay 
             sourceGame={sourceGame} 
             sourceRank={sourceRank} 
             targetGame={targetGame} 
-            targetRank={targetRank}
-            sourceTopPercentage={sourceTopPercentage}
-            t={t}
+            rankData={rankData}
+            t={(key, params) => t(key, language, params)}
           />
           <Footer />
         </>

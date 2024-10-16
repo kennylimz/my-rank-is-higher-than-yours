@@ -12,6 +12,7 @@
 
 # Production
 /build
+/public/staticData.js
 
 # Misc
 .DS_Store
@@ -47,3 +48,5 @@ yarn-error.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
