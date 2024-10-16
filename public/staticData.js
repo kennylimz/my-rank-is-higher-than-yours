@@ -274,6 +274,132 @@ export const staticData = {
         "Top%": "0.75"
       }
     ],
+    "League of Legends": [
+      {
+        "Rank": "Iron IV",
+        "Top%": "98.9"
+      },
+      {
+        "Rank": "Iron III",
+        "Top%": "97.0"
+      },
+      {
+        "Rank": "Iron II",
+        "Top%": "94.6"
+      },
+      {
+        "Rank": "Iron I",
+        "Top%": "90.5"
+      },
+      {
+        "Rank": "Bronze IV",
+        "Top%": "87.0"
+      },
+      {
+        "Rank": "Bronze III",
+        "Top%": "79.6"
+      },
+      {
+        "Rank": "Bronze II",
+        "Top%": "74.0"
+      },
+      {
+        "Rank": "Bronze I",
+        "Top%": "68.8"
+      },
+      {
+        "Rank": "Silver IV",
+        "Top%": "65.5"
+      },
+      {
+        "Rank": "Silver III",
+        "Top%": "59.0"
+      },
+      {
+        "Rank": "Silver II",
+        "Top%": "54.6"
+      },
+      {
+        "Rank": "Silver I",
+        "Top%": "50.7"
+      },
+      {
+        "Rank": "Gold IV",
+        "Top%": "48.1"
+      },
+      {
+        "Rank": "Gold III",
+        "Top%": "41.8"
+      },
+      {
+        "Rank": "Gold II",
+        "Top%": "38.0"
+      },
+      {
+        "Rank": "Gold I",
+        "Top%": "34.9"
+      },
+      {
+        "Rank": "Platinum IV",
+        "Top%": "32.7"
+      },
+      {
+        "Rank": "Platinum III",
+        "Top%": "26.6"
+      },
+      {
+        "Rank": "Platinum II",
+        "Top%": "22.7"
+      },
+      {
+        "Rank": "Platinum I",
+        "Top%": "19.1"
+      },
+      {
+        "Rank": "Emerald IV",
+        "Top%": "16.8"
+      },
+      {
+        "Rank": "Emerald III",
+        "Top%": "11.4"
+      },
+      {
+        "Rank": "Emerald II",
+        "Top%": "8.7"
+      },
+      {
+        "Rank": "Emerald I",
+        "Top%": "6.8"
+      },
+      {
+        "Rank": "Diamond IV",
+        "Top%": "4.8"
+      },
+      {
+        "Rank": "Diamond III",
+        "Top%": "2.84"
+      },
+      {
+        "Rank": "Diamond II",
+        "Top%": "1.97"
+      },
+      {
+        "Rank": "Diamond I",
+        "Top%": "1.3"
+      },
+      {
+        "Rank": "Master",
+        "Top%": "0.78"
+      },
+      {
+        "Rank": "GrandMaster",
+        "Top%": "0.088"
+      },
+      {
+        "Rank": "Challenger",
+        "Top%": "0.026"
+      }
+    ],
     "Dota 2": [
       {
         "Rank": "Herald 1",
@@ -418,132 +544,6 @@ export const staticData = {
       {
         "Rank": "Immortal",
         "Top%": "2.71"
-      }
-    ],
-    "League of Legends": [
-      {
-        "Rank": "Iron IV",
-        "Top%": "98.9"
-      },
-      {
-        "Rank": "Iron III",
-        "Top%": "97.0"
-      },
-      {
-        "Rank": "Iron II",
-        "Top%": "94.6"
-      },
-      {
-        "Rank": "Iron I",
-        "Top%": "90.5"
-      },
-      {
-        "Rank": "Bronze IV",
-        "Top%": "87.0"
-      },
-      {
-        "Rank": "Bronze III",
-        "Top%": "79.6"
-      },
-      {
-        "Rank": "Bronze II",
-        "Top%": "74.0"
-      },
-      {
-        "Rank": "Bronze I",
-        "Top%": "68.8"
-      },
-      {
-        "Rank": "Silver IV",
-        "Top%": "65.5"
-      },
-      {
-        "Rank": "Silver III",
-        "Top%": "59.0"
-      },
-      {
-        "Rank": "Silver II",
-        "Top%": "54.6"
-      },
-      {
-        "Rank": "Silver I",
-        "Top%": "50.7"
-      },
-      {
-        "Rank": "Gold IV",
-        "Top%": "48.1"
-      },
-      {
-        "Rank": "Gold III",
-        "Top%": "41.8"
-      },
-      {
-        "Rank": "Gold II",
-        "Top%": "38.0"
-      },
-      {
-        "Rank": "Gold I",
-        "Top%": "34.9"
-      },
-      {
-        "Rank": "Platinum IV",
-        "Top%": "32.7"
-      },
-      {
-        "Rank": "Platinum III",
-        "Top%": "26.6"
-      },
-      {
-        "Rank": "Platinum II",
-        "Top%": "22.7"
-      },
-      {
-        "Rank": "Platinum I",
-        "Top%": "19.1"
-      },
-      {
-        "Rank": "Emerald IV",
-        "Top%": "16.8"
-      },
-      {
-        "Rank": "Emerald III",
-        "Top%": "11.4"
-      },
-      {
-        "Rank": "Emerald II",
-        "Top%": "8.7"
-      },
-      {
-        "Rank": "Emerald I",
-        "Top%": "6.8"
-      },
-      {
-        "Rank": "Diamond IV",
-        "Top%": "4.8"
-      },
-      {
-        "Rank": "Diamond III",
-        "Top%": "2.84"
-      },
-      {
-        "Rank": "Diamond II",
-        "Top%": "1.97"
-      },
-      {
-        "Rank": "Diamond I",
-        "Top%": "1.3"
-      },
-      {
-        "Rank": "Master",
-        "Top%": "0.78"
-      },
-      {
-        "Rank": "GrandMaster",
-        "Top%": "0.088"
-      },
-      {
-        "Rank": "Challenger",
-        "Top%": "0.026"
       }
     ],
     "Overwatch": [
@@ -1903,4 +1903,4 @@ export const staticData = {
       }
     ]
   }
-};
+}; export default staticData;

@@ -25,8 +25,8 @@ languages.forEach(lang => {
 
         // If this is the last file, write the output
         if (lang === languages[languages.length - 1] && csvFile === csvFiles[csvFiles.length - 1]) {
-          const outputFile = path.join(__dirname, '../lib/staticData.js');
-          const jsContent = `export const staticData = ${JSON.stringify(outputData, null, 2)};`;
+          const outputFile = path.join(__dirname, '../public/staticData.js');
+          const jsContent = `export const staticData = ${JSON.stringify(outputData, null, 2)}; export default staticData;`;
           fs.writeFileSync(outputFile, jsContent);
           console.log(`All data has been generated and saved to ${outputFile}`);
         }

@@ -1,16 +1,9 @@
-const repo = 'my-rank-is-higher-than-yours' // Replace with your repo name
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  assetPrefix: process.env.NODE_ENV === 'production' ? `/${repo}/` : '',
-  basePath: process.env.NODE_ENV === 'production' ? `/${repo}` : '',
+  assetPrefix: '.',
   images: {
     unoptimized: true,
-  },
-  async exportPathMap(defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
-    return {
-      '/': { page: '/' },
-    };
   },
 }
 
