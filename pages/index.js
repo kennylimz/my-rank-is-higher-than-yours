@@ -17,14 +17,11 @@ export default function Home() {
   const [sourceTopPercentage, setSourceTopPercentage] = useState(null);
 
   useEffect(() => {
-    setGames(getGames(language));
-
-    // Reset fields when language changes
-    setSourceGame('');
-    setSourceRank('');
-    setTargetGame('');
-    setTargetRank('');
-    setSourceTopPercentage(null);
+    async function fetchGames() {
+      const gamesData = await getGames(language);
+      setGames(gamesData);
+    }
+    fetchGames();
   }, [language]);
 
   useEffect(() => {
