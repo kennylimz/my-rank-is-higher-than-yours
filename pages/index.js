@@ -68,48 +68,50 @@ export default function Home() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className={styles.languageSwitch}>
-          <button 
-            onClick={() => handleLanguageChange('zh')} 
-            className={language === 'zh' ? styles.active : ''}
-          >
-            中文
-          </button>
-          <button 
-            onClick={() => handleLanguageChange('en')} 
-            className={language === 'en' ? styles.active : ''}
-          >
-            English
-          </button>
-        </div>
-        <h1 className={styles.title}>{t('title')}</h1>
-        <div className={styles.converterContainer}>
-          <RankSelector
-            games={games}
-            selectedGame={sourceGame}
-            selectedRank={sourceRank}
-            onGameChange={setSourceGame}
-            onRankChange={setSourceRank}
-            label={t('sourceGame')}
+        <>
+          <div className={styles.languageSwitch}>
+            <button 
+              onClick={() => handleLanguageChange('zh')} 
+              className={language === 'zh' ? styles.active : ''}
+            >
+              中文
+            </button>
+            <button 
+              onClick={() => handleLanguageChange('en')} 
+              className={language === 'en' ? styles.active : ''}
+            >
+              English
+            </button>
+          </div>
+          <h1 className={styles.title}>{t('title')}</h1>
+          <div className={styles.converterContainer}>
+            <RankSelector
+              games={games}
+              selectedGame={sourceGame}
+              selectedRank={sourceRank}
+              onGameChange={setSourceGame}
+              onRankChange={setSourceRank}
+              label={t('sourceGame')}
+              t={t}
+            />
+            <RankSelector
+              games={games}
+              selectedGame={targetGame}
+              onGameChange={setTargetGame}
+              label={t('targetGame')}
+              t={t}
+            />
+          </div>
+          <RankDisplay 
+            sourceGame={sourceGame} 
+            sourceRank={sourceRank} 
+            targetGame={targetGame} 
+            targetRank={targetRank}
+            sourceTopPercentage={sourceTopPercentage}
             t={t}
           />
-          <RankSelector
-            games={games}
-            selectedGame={targetGame}
-            onGameChange={setTargetGame}
-            label={t('targetGame')}
-            t={t}
-          />
-        </div>
-        <RankDisplay 
-          sourceGame={sourceGame} 
-          sourceRank={sourceRank} 
-          targetGame={targetGame} 
-          targetRank={targetRank}
-          sourceTopPercentage={sourceTopPercentage}
-          t={t}
-        />
-        <Footer />
+          <Footer />
+        </>
       )}
     </div>
   );
