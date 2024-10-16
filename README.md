@@ -1,5 +1,5 @@
 # Game Rank Converter
-(https://kennylimz.github.io/my-rank-is-higher-than-yours/)
+https://kennylimz.github.io/my-rank-is-higher-than-yours/
 
 这个项目收集了一些游戏的段位分布数据，让你可以知道自己的段位在别的游戏里是什么水平。
 
