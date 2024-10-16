@@ -1,19 +1,24 @@
 {
   "name": "game-rank-converter",
   "version": "1.0.0",
+  "description": "A tool to convert ranks between different games",
+  "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
-    "start": "next start"
+    "build": "node scripts/generate-static-data.js && next build",
+    "start": "next start",
+    "export": "next export",
+    "deploy": "npm run build && npm run export",
+    "serve": "npx serve out",
+    "test:static": "npm run deploy && npm run serve"
   },
   "dependencies": {
-    "next": "^12.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "next": "^13.4.19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "csv-parser": "^3.0.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "fs-extra": "^10.0.0"
+    "serve": "^14.2.0"
   }
 }

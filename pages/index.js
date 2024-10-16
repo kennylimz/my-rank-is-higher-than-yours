@@ -5,6 +5,7 @@ import RankSelector from '../components/RankSelector';
 import RankDisplay from '../components/RankDisplay';
 import Footer from '../components/Footer';
 import styles from '../styles/Home.module.css';
+import { getGames, convertRank } from '../lib/dataFunctions';
 
 export default function Home() {
   const { language, setLanguage } = useContext(LanguageContext);
@@ -16,9 +17,7 @@ export default function Home() {
   const [sourceTopPercentage, setSourceTopPercentage] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/games?lang=${language}`)
-      .then(response => response.json())
-      .then(data => setGames(data));
+    setGames(getGames(language));
 
     // Reset fields when language changes
     setSourceGame('');
@@ -29,31 +28,21 @@ export default function Home() {
   }, [language]);
 
   useEffect(() => {
-    const fetchSourcePercentage = async () => {
-      if (sourceGame && sourceRank) {
-        const response = await fetch(`/api/convert?sourceGame=${sourceGame}&sourceRank=${sourceRank}&lang=${language}`);
-        const data = await response.json();
-        setSourceTopPercentage(data.sourceTopPercentage);
-      } else {
-        setSourceTopPercentage(null);
-      }
-    };
-
-    fetchSourcePercentage();
+    if (sourceGame && sourceRank) {
+      const result = convertRank(sourceGame, sourceRank, null, language);
+      setSourceTopPercentage(result.sourceTopPercentage);
+    } else {
+      setSourceTopPercentage(null);
+    }
   }, [sourceGame, sourceRank, language]);
 
   useEffect(() => {
-    const convertRank = async () => {
-      if (sourceGame && sourceRank && targetGame) {
-        const response = await fetch(`/api/convert?sourceGame=${sourceGame}&sourceRank=${sourceRank}&targetGame=${targetGame}&lang=${language}`);
-        const data = await response.json();
-        setTargetRank(data.targetRank);
-      } else {
-        setTargetRank('');
-      }
-    };
-
-    convertRank();
+    if (sourceGame && sourceRank && targetGame) {
+      const result = convertRank(sourceGame, sourceRank, targetGame, language);
+      setTargetRank(result.targetRank);
+    } else {
+      setTargetRank('');
+    }
   }, [sourceGame, sourceRank, targetGame, language]);
 
   const t = (key) => translations[language][key];
