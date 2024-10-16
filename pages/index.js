@@ -15,31 +15,40 @@ export default function Home() {
   const [targetGame, setTargetGame] = useState('');
   const [targetRank, setTargetRank] = useState('');
   const [sourceTopPercentage, setSourceTopPercentage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchGames() {
+    async function loadData() {
+      setIsLoading(true);
       const gamesData = await getGames(language);
       setGames(gamesData);
+      setIsLoading(false);
     }
-    fetchGames();
+    loadData();
   }, [language]);
 
   useEffect(() => {
-    if (sourceGame && sourceRank) {
-      const result = convertRank(sourceGame, sourceRank, null, language);
-      setSourceTopPercentage(result.sourceTopPercentage);
-    } else {
-      setSourceTopPercentage(null);
+    async function updateSourcePercentage() {
+      if (sourceGame && sourceRank) {
+        const result = await convertRank(sourceGame, sourceRank, null, language);
+        setSourceTopPercentage(result.sourceTopPercentage);
+      } else {
+        setSourceTopPercentage(null);
+      }
     }
+    updateSourcePercentage();
   }, [sourceGame, sourceRank, language]);
 
   useEffect(() => {
-    if (sourceGame && sourceRank && targetGame) {
-      const result = convertRank(sourceGame, sourceRank, targetGame, language);
-      setTargetRank(result.targetRank);
-    } else {
-      setTargetRank('');
+    async function updateTargetRank() {
+      if (sourceGame && sourceRank && targetGame) {
+        const result = await convertRank(sourceGame, sourceRank, targetGame, language);
+        setTargetRank(result.targetRank);
+      } else {
+        setTargetRank('');
+      }
     }
+    updateTargetRank();
   }, [sourceGame, sourceRank, targetGame, language]);
 
   const t = (key) => translations[language][key];
@@ -56,48 +65,52 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.languageSwitch}>
-        <button 
-          onClick={() => handleLanguageChange('zh')} 
-          className={language === 'zh' ? styles.active : ''}
-        >
-          中文
-        </button>
-        <button 
-          onClick={() => handleLanguageChange('en')} 
-          className={language === 'en' ? styles.active : ''}
-        >
-          English
-        </button>
-      </div>
-      <h1 className={styles.title}>{t('title')}</h1>
-      <div className={styles.converterContainer}>
-        <RankSelector
-          games={games}
-          selectedGame={sourceGame}
-          selectedRank={sourceRank}
-          onGameChange={setSourceGame}
-          onRankChange={setSourceRank}
-          label={t('sourceGame')}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className={styles.languageSwitch}>
+          <button 
+            onClick={() => handleLanguageChange('zh')} 
+            className={language === 'zh' ? styles.active : ''}
+          >
+            中文
+          </button>
+          <button 
+            onClick={() => handleLanguageChange('en')} 
+            className={language === 'en' ? styles.active : ''}
+          >
+            English
+          </button>
+        </div>
+        <h1 className={styles.title}>{t('title')}</h1>
+        <div className={styles.converterContainer}>
+          <RankSelector
+            games={games}
+            selectedGame={sourceGame}
+            selectedRank={sourceRank}
+            onGameChange={setSourceGame}
+            onRankChange={setSourceRank}
+            label={t('sourceGame')}
+            t={t}
+          />
+          <RankSelector
+            games={games}
+            selectedGame={targetGame}
+            onGameChange={setTargetGame}
+            label={t('targetGame')}
+            t={t}
+          />
+        </div>
+        <RankDisplay 
+          sourceGame={sourceGame} 
+          sourceRank={sourceRank} 
+          targetGame={targetGame} 
+          targetRank={targetRank}
+          sourceTopPercentage={sourceTopPercentage}
           t={t}
         />
-        <RankSelector
-          games={games}
-          selectedGame={targetGame}
-          onGameChange={setTargetGame}
-          label={t('targetGame')}
-          t={t}
-        />
-      </div>
-      <RankDisplay 
-        sourceGame={sourceGame} 
-        sourceRank={sourceRank} 
-        targetGame={targetGame} 
-        targetRank={targetRank}
-        sourceTopPercentage={sourceTopPercentage}
-        t={t}
-      />
-      <Footer />
+        <Footer />
+      )}
     </div>
   );
 }
